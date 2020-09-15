@@ -10,6 +10,9 @@ use EthanGame;
 sub main() {
     # parse args
     my $opts = deal_with_options();
+    if (!defined($opts)) {
+        return 0;
+    }
     # initialize game
     my $game = EthanGame->new($opts);
     # run the game
@@ -25,7 +28,17 @@ sub deal_with_options {
     my $num_players = 5;
     my $starting_chips = 5;
     my $where_to_output = "";
-    GetOptions('e' => \$ethaneyes, 'a' => \$autoplay, 'p=i' => \$num_players, 's=i' => \$starting_chips);
+    my $help_me = 0;
+    GetOptions('h' => \$help_me, 'e' => \$ethaneyes, 'a' => \$autoplay, 'p=i' => \$num_players, 's=i' => \$starting_chips);
+    if ($help_me) {
+        print "ethan_perl.pl [-h] [-e] [-a] [-p <player count>] [-s <starting chip count>]\n";
+        print " -h : show help\n";
+        print " -e : enable Ethan eyes\n";
+        print " -a : autoplay (no hitting enter)\n";
+        print " -p : specify number of players (does not count ethan himself)\n";
+        print " -s : specify number of starting chips\n";
+        return undef;
+    }
     if ($num_players < 1) {
         die "need at least 1 player, got $num_players";
     } elsif ($num_players > $EthanGame::MAX_PLAYERS) {
