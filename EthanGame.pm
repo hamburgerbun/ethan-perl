@@ -57,6 +57,10 @@ sub execute_turn {
         return 0;
     }
     print "it is player $pl_idx\'s turn\n";
+    if (!$self->{auto_play}) {
+        print "hit enter to continue...\n";
+        my $garbo = <STDIN>;
+    }
     # roll some die
     my $die1 = int(rand(6)) + 1;
     my $die2 = int(rand(6)) + 1;

@@ -13,7 +13,6 @@ sub main() {
     # initialize game
     my $game = EthanGame->new($opts);
     # run the game
-    print Dumper($game);
     $game->start_game();
     # that's it
     print "final state of the game:\n";
@@ -26,7 +25,7 @@ sub deal_with_options {
     my $num_players = 5;
     my $starting_chips = 5;
     my $where_to_output = "";
-    GetOptions('e' => \$ethaneyes, 'a' => \$autoplay, 'p' => \$num_players, 's' => \$starting_chips);
+    GetOptions('e' => \$ethaneyes, 'a' => \$autoplay, 'p=i' => \$num_players, 's=i' => \$starting_chips);
     if ($num_players < 1) {
         die "need at least 1 player, got $num_players";
     } elsif ($num_players > $EthanGame::MAX_PLAYERS) {
